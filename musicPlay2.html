@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width"/>
+<meta content="240" name="MobileOptimized">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" name="viewport">
+<meta name="format-detection" content="telephone=no"/>
+<title></title>
+<script type="text/javascript"  src="jquery-3.1.1.min.js"></script>
+<style type="text/css">
+	.audio{
+		border:1px solid #e5ecfb;
+		border-radius:8px;
+		width:320px;
+		height:32px;
+	}
+	.loadout{
+		border:1px solid #66c2ae;
+		border-radius:2px;
+		height:6px;
+		width:150px;
+		float: left;
+        margin-top:4px;
+	}
+	.loadint{
+		background:#66c2ae;
+		height:6px;
+	}
+	.total_time{
+		display: inline-block;
+		position: relative;
+		left:0;
+		width:60px;
+		float: left;
+		text-align: center;
+		margin-top:1px;
+	}
+	.move_time{
+		float: left;
+		display: inline-block;
+		position:relative;
+		right:0;
+		width:60px;
+		text-align: center;
+	}
+	.plays{
+		border-right:1px solid #ddd;
+		width:20px;
+		height:28px;
+		line-height: 28px;
+		float: left;
+        margin-top:2px;
+	}
+	.process{
+		float:left;
+		font-size: 12px;
+	}
+	span.play{
+		background: url("images/play.png") no-repeat center center;
+		width:10px;
+		height:10px;
+		display: block;
+		margin-top:8px;
+		margin-left:5px;
+	}
+	span.pause{
+		background: url("images/pause.png") no-repeat center center;
+		width:10px;
+		height:10px;
+		display: block;
+		margin-top:8px;
+		margin-left:5px;
+	}
+	.note{
+		float: left;font-size: 12px;margin-left:10px;
+		color:#999;
+	}
+
+	/* 音频文件 */
+	.files{
+		border:1px solid #ccc;
+		height:100px;
+		width:90%;
+		margin-top:10px;
+	}
+	.files span{
+		cursor: pointer;
+	}
+</style>
+</head>
+<body>
+<div class="audio">
+	<div class="plays">
+		<a href="javascript:void(0)" id="start" data-status="0" ><span class="play"></span></a>
+	</div>
+	<div class="process">
+		<div id="time01" class="total_time">00:00</div>
+		<div class="loadout"><div class="loadint" style="width:0%"></div></div>
+		<div id="time02" class="move_time">00:00</div>
+	</div>
+	<div class="note">
+		录音
+	</div>
+
+	<audio id="myMusic" src="2.mp3"  >
+
+	</audio>
+
+
+</div>
+<div class="files">
+  <a href="1.mp3" target="_blank">111</a>
+	<a href="2.mp3" target="_blank">222</a>
+	<a href="audio.ogg" target="_blank">333</a>
+	<!--<span datasrc="1.mp3">111</span>
+	<span datasrc="2.mp3">222</span>
+	<span datasrc="audio.ogg">333</span>-->
+</div>
+</body>
+</html>
+<script type="text/javascript" src="musicPlay.js"></script>
+<script type="text/javascript">
+	
+$(function(){
+	plays();
+});
+function plays(){
+	$("#start").click(function(){
+		//获取当前状态
+		var data=$(this).data("status");
+		if(data===0){
+			myplay.play();
+			//$(this).text("暂停");
+			$('span.play').removeClass('play').addClass('pause');
+			$(this).data("status",1);
+
+		} else if(data===1) {
+			myplay.pause();
+			//$(this).text("播放");
+			$('span.pause').removeClass('pause').addClass('play');
+			$(this).data("status",0);
+
+		}
+	});
+}
+
+
+	$('.files a').click(function(){
+		var na = $(this).text();
+		var ss = $(this).attr('href');
+		console.log(ss);
+		$('.audio audio').attr('src',ss);
+		$('#start span.pause').removeClass('pause').addClass('play');
+		$('.note').text('录音--' + na );
+	});
+
+
+	
+</script>
